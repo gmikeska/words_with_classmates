@@ -1,0 +1,47 @@
+<div class="panel panel-default">
+ <h2><%= @user.username %> vs. <%= @game_session.list_opponents(@user.username).join() %></h2>
+<div class="well well-sm" id='gamePanel'>
+	<div id="gameInfo"></div><div id="gameInfo2"></div>
+	<center><canvas width="700" height="800" id="game"></canvas><button class="btn btn-lg btn-success">Submit</button></center>
+
+</div>
+<script>
+playerName = "<%= @user.username %>"
+boardState = <%= @game_session.board_state.to_json %>
+playerRack = <%= @game_session.letter_bag.rack[@user.username].to_json %>
+tilesRemaining = <%= @game_session.letter_bag.remainingTiles %>
+sessionID = <%= params['id'] %>
+userID = "<%= @user.id %>"
+currentPlayer ="<%= @game_session.current_player %>"
+$(document).ready(function(){
+
+
+    $('#gameInfo2').append($('<h1>').text('Words Played'))
+    gameBoard.log = $('#gameInfo').append.bind($('#gameInfo'))
+
+    gameBoard.reRack()
+    boardState.each(function(y, i){
+    	y.each(function(x, j){
+    		if(x)
+    		{
+    			console.log(x)
+    			tile = gameBoard.makeLetterTile(x)
+    			gameBoard.placeTile(j, i, tile)
+    			tile.isNew = false
+    			tile.dragAndDrop(false)
+    		}
+    	})
+    })
+    
+    $('#gameInfo').append($('<h2>').text("It's "+currentPlayer+"'s turn."))
+    $('button').click(function(){
+
+    	client.send({eventName:"played", tiles:gameBoard.getPendingLetters()})
+
+    	gameBoard.freezePendingLetters()
+    })
+})
+
+</script>
+</div>
+

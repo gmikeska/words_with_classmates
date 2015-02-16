@@ -1,0 +1,11 @@
+<div class="panel panel-default">
+  <form class="panel-body" action="/game/new" method="POST">
+    <select name = "user">
+<option> -- Select a user to challenge -- </option>
+<% @allusers.each do |u| %>
+<option value="<%= u.id %>"><%= u.username %></option>
+<% end %>
+</select>
+<button class='btn btn-success'>Start Game</button>
+  </form>
+</div>

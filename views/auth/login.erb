@@ -1,0 +1,14 @@
+<center><div class="panel panel-default" style="width: 39%;">
+<h2>Log In!</h2>
+  <div class="panel-body">
+<div class="well well-sm">
+<form class='form-group	' method="POST">
+	<label>Username:</label><input type='text', name='username' value='<%=params["username"]%>'><br>
+	<label>Password:</label><input type='password', name='password'><br>
+	<button class='btn btn-success'>Submit</button>
+	<% if flash[:loginmsg] %>
+	<p class="alert alert-danger" role="alert"><%= flash[:loginmsg] %></p><br>
+	<% end %>
+</form>
+</div></div></div>
+</center>

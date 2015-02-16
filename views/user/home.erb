@@ -1,0 +1,9 @@
+<%= @user.username %>
+
+<a href="/game/new">New Game</a><br><br>
+
+<% if @user.sessions %>
+	<% @user.sessions.each do |session| %>
+		<a href="/game/<%= session.id %>/show">Game against <%= session.list_opponents(@user.username).join() %></a><br>
+	<% end %>
+<% end %>

@@ -1,0 +1,5 @@
+require_relative 'models/LetterBag.rb'
+require_relative 'models/User.rb'
+require_relative 'models/Session.rb'
+require_relative 'models/UserSession.rb'
+require_relative 'actions.rb'

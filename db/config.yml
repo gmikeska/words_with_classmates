@@ -1,0 +1,11 @@
+development:
+  adapter: postgresql
+  database: wordGame
+  pool: 5
+  timeout: 5000
+
+test:
+  adapter: postgresql
+  database: wordGame
+  pool: 5
+  timeout: 5000

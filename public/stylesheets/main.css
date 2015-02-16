@@ -1,0 +1,40 @@
+#loginPanel {
+  float: right;
+  padding-right: 21px; }
+
+#title {
+  padding-left: 19px; }
+
+.panel-default {
+  background: white;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, white 0%, #f1f1f1 50%, #e1e1e1 51%, #f6f6f6 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(50%, #f1f1f1), color-stop(51%, #e1e1e1), color-stop(100%, #f6f6f6));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, white 0%, #f1f1f1 50%, #e1e1e1 51%, #f6f6f6 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, white 0%, #f1f1f1 50%, #e1e1e1 51%, #f6f6f6 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, white 0%, #f1f1f1 50%, #e1e1e1 51%, #f6f6f6 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, white 0%, #f1f1f1 50%, #e1e1e1 51%, #f6f6f6 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 );
+  /* IE6-9 */ }
+
+#gameInfo {
+  float: left;
+  background-color: #829FB3;
+  height: 100%;
+  padding: 23px;
+  border-radius: 18px; }
+
+#gameInfo2 {
+  float: right;
+  background-color: #829FB3;
+  height: 100%;
+  padding: 23px;
+  border-radius: 18px; }
+
+/*# sourceMappingURL=main.css.map */

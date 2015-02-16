@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Words With Classmates</title>
+	<!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js'></script> -->
+	<link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js'></script>
+	<script src='https://code.jquery.com/jquery-2.1.3.min.js'></script>
+	<script src='/js/ocanvas-2.7.3.js'></script>
+	<script src='/js/sugar.min.js'></script>
+	<script src='/js/gameCode.js'></script>
+</head>
+<body id='main'>
+<div class='header'>
+<% if !@user %>
+<div id="loginPanel"><a href='/login'>Login</a> | <a href='/signup'>Sign Up</a></div>
+<% else %>
+<div id="loginPanel"><a href='/logout'>Log Out</a></div>
+<% end %>
+<h1 id='title'>Words With Classmates</h1>
+</div>
+<div class ='main container-fluid'>
+<%= yield %>
+</div>
+</body>
+<script>
+	loadGame()
+	var client = Window.client
+var gameBoard = Window.gameBoard
+var canvas = Window.canvas
+
+loadEvents()
+client.connect()
+</script>
+</html>

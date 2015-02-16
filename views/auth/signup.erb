@@ -1,0 +1,17 @@
+<center><div class="panel panel-default" style="width: 39%;">
+<h2>Sign Up!</h2>
+  <div class="panel-body">
+<div class="well">
+<form class='form-group	' method="POST">
+	<label>Username:</label><input type='text', name='username' value='<%= params["username"]%>' ><br>
+	<label>Password:</label><input type='password', name='password'><br>
+	<label>Confirm Password:</label><input type='password', name='confirm'><br>
+	<br>
+	<% if flash[:loginmsg] %>
+	<p class="alert alert-danger" role="alert"><%= flash[:loginmsg] %></p><br>
+	<% end %>
+
+	<button class='btn btn-success'>Submit</button>
+</form>
+</div></div></div>
+</center>

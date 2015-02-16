@@ -1,0 +1,58 @@
+/*
+Error: Inconsistent indentation: 1 tab was used for indentation, but the rest of the document was indented using 2 spaces.
+        on line 6 of ./public/stylesheets/sass/main.css.sass
+
+1: #loginPanel
+2:   float: right
+3:   padding-right: 1px
+4: 
+5: #title
+6: 	padding: left: 1px
+
+Backtrace:
+./public/stylesheets/sass/main.css.sass:6
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/sass-3.4.10/lib/sass/engine.rb:473:in `block in tabulate'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/sass-3.4.10/lib/sass/engine.rb:431:in `each'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/sass-3.4.10/lib/sass/engine.rb:431:in `each_with_index'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/sass-3.4.10/lib/sass/engine.rb:431:in `tabulate'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/sass-3.4.10/lib/sass/engine.rb:396:in `_to_tree'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/sass-3.4.10/lib/sass/engine.rb:368:in `_render_with_sourcemap'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/sass-3.4.10/lib/sass/engine.rb:285:in `render_with_sourcemap'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/sass-3.4.10/lib/sass/plugin/compiler.rb:490:in `update_stylesheet'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/sass-3.4.10/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/sass-3.4.10/lib/sass/plugin/compiler.rb:209:in `each'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/sass-3.4.10/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/sass-3.4.10/lib/sass/plugin.rb:82:in `update_stylesheets'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/sass-3.4.10/lib/sass/plugin.rb:54:in `check_for_updates'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/sass-3.4.10/lib/sass/plugin/rack.rb:51:in `call'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/rack-1.6.0/lib/rack/tempfile_reaper.rb:15:in `call'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/rack-1.6.0/lib/rack/lint.rb:49:in `_call'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/rack-1.6.0/lib/rack/lint.rb:37:in `call'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/rack-1.6.0/lib/rack/showexceptions.rb:24:in `call'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/rack-1.6.0/lib/rack/commonlogger.rb:33:in `call'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/sinatra-1.4.5/lib/sinatra/base.rb:217:in `call'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/rack-1.6.0/lib/rack/chunked.rb:54:in `call'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/rack-1.6.0/lib/rack/content_length.rb:15:in `call'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/connection.rb:86:in `block in pre_process'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/connection.rb:84:in `catch'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/connection.rb:84:in `pre_process'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/sinatra-websocket-0.3.1/lib/sinatra-websocket/ext/thin/connection.rb:26:in `pre_process_with_websocket'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/connection.rb:53:in `process'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/connection.rb:39:in `receive_data'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/sinatra-websocket-0.3.1/lib/sinatra-websocket/ext/thin/connection.rb:40:in `receive_data_with_websocket'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/sinatra-websocket-0.3.1/lib/sinatra-websocket/ext/thin/connection.rb:65:in `receive_data_with_flash_policy_file'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.4/lib/eventmachine.rb:187:in `run_machine'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.4/lib/eventmachine.rb:187:in `run'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/backends/base.rb:73:in `start'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/server.rb:162:in `start'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/rack-1.6.0/lib/rack/handler/thin.rb:19:in `run'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/rack-1.6.0/lib/rack/server.rb:286:in `start'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/rack-1.6.0/lib/rack/server.rb:147:in `start'
+/home/greg/.rbenv/versions/2.0.0-p481/lib/ruby/gems/2.0.0/gems/rack-1.6.0/bin/rackup:4:in `<top (required)>'
+/home/greg/.rbenv/versions/2.0.0-p481/bin/rackup:23:in `load'
+/home/greg/.rbenv/versions/2.0.0-p481/bin/rackup:23:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: Inconsistent indentation: 1 tab was used for indentation, but the rest of the document was indented using 2 spaces.\A         on line 6 of ./public/stylesheets/sass/main.css.sass\A \A 1: #loginPanel\A 2:   float: right\A 3:   padding-right: 1px\A 4: \A 5: #title\A 6: 	padding: left: 1px"; }
