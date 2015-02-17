@@ -1,11 +1,11 @@
 development:
   adapter: postgresql
-  database: wordGame
+  database: d2j9d3fh98p3uu
   pool: 5
   timeout: 5000
 
 test:
   adapter: postgresql
-  database: wordGame
+  database: d2j9d3fh98p3uu
   pool: 5
   timeout: 5000
