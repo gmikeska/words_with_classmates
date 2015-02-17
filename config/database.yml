@@ -2,10 +2,12 @@ development:
   adapter: postgresql
   host: ENV['DBHOST']
   username: ENV['DBUSER']
+  password: ENV['DBPASS']
   database: ENV['DBNAME']
 
 test:
   adapter: postgresql
   host: ENV['DBHOST']
   username: ENV['DBUSER']
+  password: ENV['DBPASS']
   database: ENV['DBNAME']
