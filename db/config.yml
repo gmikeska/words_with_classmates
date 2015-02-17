@@ -1,18 +1,5 @@
 development:
-  host: ENV['DBHOST']
-  adapter: postgresql
-  database: ENV['DBNAME']
-  pool: 5
-  username: ENV['DBUSER']
-  password: ENV['DBPASS']
-  timeout: 5000
+  url:ENV['DATABASE_URL']
 
 test:
-  host: ENV['DBHOST']
-  adapter: postgresql
-  database: ENV['DBNAME']
-  pool: 5
-  username: ENV['DBUSER']
-  password: ENV['DBPASS']
-  timeout: 5000
-
+  url:ENV['DATABASE_URL']
