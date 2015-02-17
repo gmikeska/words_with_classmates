@@ -1,5 +1,11 @@
 development:
-  url:ENV['DATABASE_URL']
+  adapter: postgresql
+  database: d3i2apnhscbctr
+  pool: 5
+  timeout: 5000
 
 test:
-  url:ENV['DATABASE_URL']
+  adapter: postgresql
+  database: d3i2apnhscbctr
+  pool: 5
+  timeout: 5000
