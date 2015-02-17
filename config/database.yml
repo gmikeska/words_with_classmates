@@ -1,0 +1,11 @@
+development:
+  adapter: postgresql
+  host: ENV['DBHOST']
+  username: ENV['DBUSER']
+  database: ENV['DBNAME']
+
+test:
+  adapter: postgresql
+  host: ENV['DBHOST']
+  username: ENV['DBUSER']
+  database: ENV['DBNAME']
