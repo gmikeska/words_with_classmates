@@ -36,22 +36,34 @@ module Game
 			moves = tiles.inject(true) do |result, tile|
 				result && @session.change_board_state(@user.id, tile['x'], tile['y'], tile['letter'])
 			end
-			if(moves)
-				new_letters = @session.fill_rack(@user.username).to_json
-				self.sendBack({eventName: "rack.update", data:new_letters})
+			tiles.map! do |t|
 
-				tiles.map! do |t|
+					t = {"x"=>t['x'], "y"=>t['y'], "letter"=>@session.letter_bag.make_tile(t['letter'])}
+			end
 
-						t = {"x"=>t['x'], "y"=>t['y'], "letter"=>@session.letter_bag.make_tile(t['letter'])}
-				end
-				
-				words = board[tiles.last['y']][tiles.last['x']].words(board).map do |w|
+			words = board[tiles.last['y']][tiles.last['x']].words(board).map do |w|
 					word = Game::Word.new(w)
 					@wordlist.check(word.text)
 					{text: word.text, score:word.score}
+			end
+			invalid = []
+			valid = true
+			words.each do |w|
+				if(!@wordlist.check(w[:text]))
+					invalid.push(w[:text])
+					valid = false
 				end
+			end
+			p invalid
+			p valid
 
-				binding.pry
+			if(valid)
+				params['tiles'].each do |tile|
+					@session.remove_racked_letter tile['letter'] 
+					@session.save
+				end
+				new_letters = @session.fill_rack(@user.username).to_json
+				self.sendBack({eventName:"rack.update", data:new_letters})
 
 				self.broadcast({eventName:'words.played', data:{player: @session.current_player, words:words}})
 				@session.lock_tiles
@@ -59,6 +71,9 @@ module Game
 				self.sendToOpponents({eventName:"boardState.update", data:tiles.to_json})
 				new_player = @session.next_player()
 				self.broadcast({eventName:"currentUser.update", data:new_player})
+			else
+				@session.reject()
+				self.sendBack({eventName:"words.reject", data:invalid })
 			end
 		end
 	end

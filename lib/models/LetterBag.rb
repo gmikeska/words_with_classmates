@@ -263,7 +263,8 @@ module Game
 		end
 
 		def check(word)
-			return @wordlist.include?(word)
+
+			return @wordlist.include?(word.downcase)
 		end
 
 	end

@@ -34,12 +34,7 @@ $(document).ready(function(){
     })
     
     $('#gameInfo').append($('<h2>').text("It's "+currentPlayer+"'s turn."))
-    $('button').click(function(){
-
-    	client.send({eventName:"played", tiles:gameBoard.getPendingLetters()})
-
-    	gameBoard.freezePendingLetters()
-    })
+    $('button').click(gameBoard.submit)
 })
 
 </script>

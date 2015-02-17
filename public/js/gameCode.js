@@ -221,6 +221,20 @@ loadGame = function()
 
 			row.push(cell)
 		},
+		submit:function()
+		{
+			client.send({eventName:"played", tiles:gameBoard.getPendingLetters()})
+		},
+		reject:function()
+		{
+			gameBoard.pending.each(function(tile){
+				gameBoard.cellAt(tile.x,tile.y).getLetterTile().remove()
+			})
+
+			gameBoard.pending = []
+
+			gameBoard.reRack()
+		},
 		freezePendingLetters:function()
 		{
 			this.pending.each(function(x){
@@ -493,9 +507,11 @@ loadGame = function()
 			this.rack[x].setLetterTile(tile)
 		}
 	}
-	gameBoard.getPendingLetters = gameBoard.pending.map.bind(gameBoard.pending, function(n){
-   			return {x:n.x, y:n.y, letter:n.letter.getLetter()}
-		})
+	gameBoard.getPendingLetters = function(){
+   			return gameBoard.pending.map(function(n){
+				return {x:n.x, y:n.y, letter:n.letter.getLetter()}
+			})
+		}
 	Window.gameBoard = gameBoard
 	Window.client = client
 	widthTotal = 2*leftMargin+(cellSize+innerMargin)*15
@@ -569,6 +585,7 @@ function loadEvents()
 
 	client.on('words.played', function(x){
 		console.log("Word played")
+		gameBoard.freezePendingLetters()
 		$entry = $('<div>').append($('<div>').css('float','left').html('<b>'+x.player+'</b> played:')).append('<br>')
 		x.words.each(function(w){
 			$entry.append($('<div>').css('float','right').append('<b>'+w.text+':</b>'+w.score+' points.')).append('<br>')
@@ -580,6 +597,7 @@ function loadEvents()
 
 	client.on("boardState.update", function(x){
 		console.log('boardState.update')
+		gameBoard.freezePendingLetters()
 		x = JSON.parse(x)
 		x.each(function(i){
 			if(i.letter)
@@ -593,4 +611,10 @@ function loadEvents()
 		})
 
 	})
+
+	client.on("words.reject", function(x){
+		gameBoard.reject()
+
+	})
+	
 }

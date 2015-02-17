@@ -47,11 +47,26 @@ module Game
 			end
 			self.save
 		end
+		def reject
+			self.board_state.each_index  do |y|
+				self.board_state[y].each_index do |x|
+					i = self.board_state[y][x]
+					if !(i.nil?) && i.is_new
+						self.letter_bag.get_rack(self.current_player).push(i)
+						self.board_state[y][x] = nil
+					end
+				end
+			end
+			self.save
+		end
 		def game_board
 			return self.board_state
 		end
 		def letter_at(x,y)
 			return self.board_state[y][x]
+		end
+		def remove_racked_letter(letter)
+			self.letter_bag.remove_racked_letter(self.current_player, letter)
 		end
 		def fill_rack(username)
 			n = (7 - self.letter_bag.get_rack(username).length)
@@ -72,7 +87,6 @@ module Game
 				end
 				tile.x = x
 				tile.y = y
-				self.letter_bag.remove_racked_letter(u.username, letter)
 				self.save
 				return true
 			else
