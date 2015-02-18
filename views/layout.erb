@@ -14,7 +14,7 @@
 	<script src='/js/gameCode.js'></script>
 </head>
 <body id='main'>
-<div class='header'>
+<div class='page-header'>
 <% if !@user %>
 <div id="loginPanel"><a href='/login'>Login</a> | <a href='/signup'>Sign Up</a></div>
 <% else %>
@@ -22,7 +22,7 @@
 <% end %>
 <h1 id='title'>Words With Classmates</h1>
 </div>
-<div class ='main container-fluid' id="content">
+<div class ='main container' id="content">
 <%= yield %>
 </div>
 </body>
