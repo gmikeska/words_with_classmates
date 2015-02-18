@@ -663,8 +663,6 @@ function loadEvents()
 	})
 
 	client.on("words.reject", function(x){
-		gameBoard.reject()
-		console.log(x)
 
 		if(x.length == 1)
 		{	
@@ -676,7 +674,9 @@ function loadEvents()
 			last = x.pop()
 			infoString = "Sorry, "+x.join(', ') +  " and "+last+" are not valid words."	
 		}
+		audio.error()
 		gameBoard.modal("Invalid", infoString)
+		gameBoard.reject()
 	})
 	
 }
