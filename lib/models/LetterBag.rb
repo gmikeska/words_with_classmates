@@ -19,7 +19,9 @@ module Game
 	require 'json'
 	class LetterBag < ActiveRecord::Base
 		serialize :tile_map, JSON
+		serialize :played_words
 		serialize :rack, JSON
+		serialize :plays
 		belongs_to :session, :class_name => 'Game::Session'
 
 		def init_tiles
@@ -74,9 +76,9 @@ module Game
 		def get_rack(username)
 			self.rack[username]
 		end
-		def remove_racked_letter(username, letter)
+		def remove_racked_letter(username, id)
 			self.rack[username].each do |obj|
-				if(obj["letter"] = letter)
+				if(obj["id"] = id)
 					self.rack[username].delete(obj)
 					self.save
 					return true
@@ -109,8 +111,8 @@ module Game
 		def list_players
 			self.rack.keys
 		end
-		def make_tile(letter)
-			lt = LetterTile.new(letter, tile_map[letter]['value'])
+		def make_tile(letter, value)
+			lt = LetterTile.new(letter, value)
 			# lt.game_board = self.session.game_board
 			return lt
 		end
@@ -132,11 +134,12 @@ module Game
 	class LetterTile
 		
 		attr_reader :letter, :value
-		attr_accessor :x, :y, :is_new
+		attr_accessor :x, :y, :is_new, :id
 		
 		def initialize(letter, value)
 			@letter = letter
 			@value = value
+			@id = 1 + rand(200)
 		end
 
 		def get_tile(game_board, direction)

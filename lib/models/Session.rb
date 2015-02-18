@@ -65,8 +65,8 @@ module Game
 		def letter_at(x,y)
 			return self.board_state[y][x]
 		end
-		def remove_racked_letter(letter)
-			self.letter_bag.remove_racked_letter(self.current_player, letter)
+		def remove_racked_letter(id)
+			self.letter_bag.remove_racked_letter(self.current_player, id)
 		end
 		def fill_rack(username)
 			n = (7 - self.letter_bag.get_rack(username).length)
@@ -76,10 +76,9 @@ module Game
 
 			return self.get_rack(username)
 		end
-		def change_board_state(user_id, x, y, letter)
+		def change_board_state(user_id, x, y, tile)
 			u = User.find(user_id)
 			if(self.current_player == u.username)
-				tile = self.letter_bag.make_tile(letter)
 				tile.is_new = true
 
 				if(self.board_state[y][x].nil?)

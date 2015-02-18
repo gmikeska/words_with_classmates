@@ -14,11 +14,16 @@ enable :sessions
 module Game
 	class Server < Sinatra::Application
 		before do
-			if session[:user_id]
-				@user = User.find(session[:user_id])
-
+			begin
+				if session['user_id']
+					@user_id = session['user_id']
+					@user = User.find(@user_id)
+				end
+			rescue ActiveRecord::RecordNotFound
+				session.clear
+				redirect to '/'
 			end
-		end
+		 end
 		get '/' do
 		  if !request.websocket?
 		    erb :index
@@ -92,6 +97,7 @@ module Game
 				if(params['password'] == params['confirm'])
 					@user.username = params['username']
 					@user.password = params['password']
+					@user.scores = []
 					@user.save()
 					session[:user_id] = @user.id
 					redirect '/home'
@@ -107,6 +113,10 @@ module Game
 		get '/signup' do
 
 			erb :'auth/signup'
+		end
+		get '/user/:username' do
+			@u = User.find_by username: params['username']
+			erb :'user/profile'
 		end
 		get '/game/new' do
 			@allusers = User.where("id != #{@user.id}")
@@ -129,6 +139,7 @@ module Game
 			game.save
 			game.letter_bag = LetterBag.create
 			game.letter_bag.init_tiles
+			game.letter_bag.played_words = []
 			game.letter_bag.init_rack
 			game.letter_bag.add_rack(@user.username)
 			game.letter_bag.add_rack(u.username)

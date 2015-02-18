@@ -32,16 +32,20 @@ module Game
 			board = @session.game_board
 			tiles = params['tiles']
 			newRack = []
+			submitted = []
+			tiles.each do |t|
+					
+					t = {"x"=>t['x'], "y"=>t['y'], "letter"=>@session.letter_bag.make_tile(t['letter'], t['value'])}
+					t['letter'].id = t['id']
+					submitted.push(t)
+			end
 			p tiles
-			moves = tiles.inject(true) do |result, tile|
-				result && @session.change_board_state(@user.id, tile['x'], tile['y'], tile['letter'])
+			moves = submitted.inject(true) do |result, tile|
+				p tile
+				result && @session.change_board_state(@user.id, tile['x'], tile['y'], tile["letter"])
 			end
-			tiles.map! do |t|
-
-					t = {"x"=>t['x'], "y"=>t['y'], "letter"=>@session.letter_bag.make_tile(t['letter'])}
-			end
-
-			words = board[tiles.last['y']][tiles.last['x']].words(board).map do |w|
+			p moves
+			words = board[submitted.last['y']][submitted.last['x']].words(board).map do |w|
 					word = Game::Word.new(w)
 					@wordlist.check(word.text)
 					{text: word.text, score:word.score}
@@ -58,6 +62,7 @@ module Game
 			p valid
 
 			if(valid)
+
 				params['tiles'].each do |tile|
 					@session.remove_racked_letter tile['letter'] 
 					@session.save
@@ -65,7 +70,13 @@ module Game
 				new_letters = @session.fill_rack(@user.username).to_json
 				self.sendBack({eventName:"rack.update", data:new_letters})
 
-				self.broadcast({eventName:'words.played', data:{player: @session.current_player, words:words}})
+				play = {player: @session.current_player, words:words}
+
+				@session.letter_bag.played_words.push(play)
+				@session.letter_bag.save()
+				@session.save()
+
+				self.broadcast({eventName:'words.played', data:play})
 				@session.lock_tiles
 
 				self.sendToOpponents({eventName:"boardState.update", data:tiles.to_json})

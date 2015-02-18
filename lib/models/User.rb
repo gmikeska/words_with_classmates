@@ -1,6 +1,7 @@
 require 'bcrypt'
 module Game
 	class User < ActiveRecord::Base
+		serialize :scores
 		validates :username, uniqueness: true
 		has_many :user_sessions, :class_name => 'Game::UserSession'
 		has_many :sessions, through: :user_sessions, :class_name => 'Game::Session'

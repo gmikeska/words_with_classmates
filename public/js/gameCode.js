@@ -1,3 +1,8 @@
+
+//scoreboardTemplate = _.template()
+playerEntryTemplate = _.template('<b><%= name %>:</b> <%= score %><br>')
+
+
 loadGame = function()
 {
 	(function() {
@@ -124,6 +129,7 @@ loadGame = function()
 	var topMargin = 20
 	var innerMargin = 5
 	var gameBoard = {
+		scores:{},
 		lastDropped:null,
 		cells:[],
 		pending:[],
@@ -170,6 +176,34 @@ loadGame = function()
 				canvas.addChild(cell);
 				//canvas.renderAll()
 			})
+		},
+		updateScore:function()
+		{
+			users = Object.keys(gameBoard.scores)
+			lines = users.map(function(x){
+				return playerEntryTemplate({name:x, score:gameBoard.scores[x]})
+			})
+				console.log(lines)
+			$('#playerScores').html(lines)
+
+		},
+		modal:function(title, body)
+		{
+			$('#myModalLabel').html(title)
+			$('#myModalBody').html(body)
+			$('#myModal').modal()
+
+		},
+		addPlayedWord:function(entry)
+		{
+			$entry = $('<div>').append($('<div>').css('float','left').html('<b>'+entry.player+'</b> played:')).append('<br>')
+			
+			entry.words.each(function(w){
+			$entry.append($('<div>').css('float','right').append('<b>'+w.text+':</b>'+w.score+' points.')).append('<br>')
+				gameBoard.scores[entry.player] += w.score
+			})
+			gameBoard.updateScore()
+			$('#gameInfo2').append($entry)
 		},
 		makeCell:function(xCoord, yCoord, typeCode)
 		{
@@ -245,6 +279,7 @@ loadGame = function()
 		},
 		makeLetterTile:function(character)
 		{
+			console.log(character)
 			if(character != null)
 			{
 				var tileSize = cellSize-1
@@ -349,6 +384,7 @@ loadGame = function()
 				letterTile.addChild(points)
 
 				letterTile.value = parseInt(character.value)
+				letterTile.id = character.id
 				letterTile.gameBoard = this
 				letterTile.letterElement = letter
 				letterTile.cell = null
@@ -372,6 +408,10 @@ loadGame = function()
 				}
 				letterTile.getLetter = function(){
 					return this.letterElement.text
+				}
+				letterTile.setLetter = function(s){
+					this.letterElement.text = s
+					this.letterElement.redraw
 				}
 				letterTile.getScore = function(){
 					switch(this.getCell().cellType)
@@ -475,6 +515,8 @@ loadGame = function()
 		placeTile:function(x,y,tile)
 		{
 			this.lastDropped = tile
+			if(tile.getLetter() == '_')
+				tile.setLetter(prompt('What letter would you like to set for this.').toUpperCase())
 			var cell = gameBoard.cells[y][x]
 			//gameBoard[y][x].add(e.target)
 			tile.moveTo(cell.getX(),cell.getY())
@@ -509,7 +551,7 @@ loadGame = function()
 	}
 	gameBoard.getPendingLetters = function(){
    			return gameBoard.pending.map(function(n){
-				return {x:n.x, y:n.y, letter:n.letter.getLetter()}
+				return {x:n.x, y:n.y, letter:n.letter.getLetter(), value:n.letter.value, id:n.letter.id}
 			})
 		}
 	Window.gameBoard = gameBoard
@@ -586,11 +628,9 @@ function loadEvents()
 	client.on('words.played', function(x){
 		console.log("Word played")
 		gameBoard.freezePendingLetters()
-		$entry = $('<div>').append($('<div>').css('float','left').html('<b>'+x.player+'</b> played:')).append('<br>')
-		x.words.each(function(w){
-			$entry.append($('<div>').css('float','right').append('<b>'+w.text+':</b>'+w.score+' points.')).append('<br>')
-		})
+		gameBoard.addPlayedWord(x)
 
+		gameBoard.updateScore()
 		$('#gameInfo2').append($entry)
 		console.log(x)
 	})
@@ -600,10 +640,11 @@ function loadEvents()
 		gameBoard.freezePendingLetters()
 		x = JSON.parse(x)
 		x.each(function(i){
+			console.log(i)
 			if(i.letter)
 			{
 				//console.log(i.letter)
-				tile = gameBoard.makeLetterTile(i.letter)
+				tile = gameBoard.makeLetterTile(i)
 				gameBoard.placeTile(i.x,i.y, tile)
 				tile.isNew = false
 				tile.dragAndDrop(false)
@@ -614,7 +655,19 @@ function loadEvents()
 
 	client.on("words.reject", function(x){
 		gameBoard.reject()
+		console.log(x)
 
+		if(x.length == 1)
+		{	
+			infoString = "Sorry, "+x[0] +" is not a valid word."
+				
+		}
+		else
+		{
+			last = x.pop()
+			infoString = "Sorry, "+x.join(', ') +  " and "+last+" are not valid words."	
+		}
+		gameBoard.modal("Invalid", infoString)
 	})
 	
 }
