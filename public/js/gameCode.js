@@ -1,13 +1,15 @@
 
 //scoreboardTemplate = _.template()
 playerEntryTemplate = _.template('<b><%= name %>:</b> <%= score %><br>')
-audio = {}
-$(".alert_sound").trigger('load');
-audio.alert = $(".alert_sound").trigger.bind($(".alert_sound"), 'play');
-$(".error_sound").trigger('load');
-audio.error = $(".error_sound").trigger.bind($(".error_sound"), 'play');
-$(".tile_sound").trigger('load');
-audio.tile = $(".tile_sound").trigger.bind($(".tile_sound"), 'play');
+$(document).ready(function(){
+	audio = {}
+	$(".alert_sound").trigger('load');
+	audio.alert = $(".alert_sound").trigger.bind($(".alert_sound"), 'play');
+	$(".error_sound").trigger('load');
+	audio.error = $(".error_sound").trigger.bind($(".error_sound"), 'play');
+	$(".tile_sound").trigger('load');
+	audio.tile = $(".tile_sound").trigger.bind($(".tile_sound"), 'play');
+})
 
 loadGame = function()
 {
