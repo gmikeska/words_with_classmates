@@ -522,6 +522,7 @@ loadGame = function()
 		},
 		placeTile:function(x,y,tile)
 		{
+			audio.tile()
 			this.lastDropped = tile
 			if(tile.getLetter() == '_')
 				tile.setLetter(prompt('What letter would you like to set for this.').toUpperCase())
