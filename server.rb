@@ -10,7 +10,7 @@ require_relative 'config/environments.rb'
 set :server, 'thin'
 set :sockets, {}
 enable :sessions
-
+set :session_secret, ENV['RACK_SECRET']
 module Game
 	class Server < Sinatra::Application
 		before do
