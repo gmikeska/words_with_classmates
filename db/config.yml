@@ -1,13 +1,13 @@
 development:
   adapter: postgresql
   database: d3i2apnhscbctr
-  host:ec2-54-204-45-65.compute-1.amazonaws.com
+  host: ec2-54-204-45-65.compute-1.amazonaws.com
   pool: 5
   timeout: 5000
 
 test:
   adapter: postgresql
   database: d3i2apnhscbctr
-  host:ec2-54-204-45-65.compute-1.amazonaws.com
+  host: ec2-54-204-45-65.compute-1.amazonaws.com
   pool: 5
   timeout: 5000
