@@ -21,7 +21,7 @@ loadGame = function()
 		
 		client.connect = function()
 		{
-			socket = new WebSocket("ws://localhost:4567")
+			socket = new WebSocket("wss://localhost:4567")
 			this.socket = socket
 			client = this
 			this.socket.onmessage = function (event) {
