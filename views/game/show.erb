@@ -1,42 +1,71 @@
 <div class="panel panel-default">
  <h2><%= @user.username %> vs. <%= @game_session.list_opponents(@user.username).join() %></h2>
 <div class="well well-sm" id='gamePanel'>
-	<div id="gameInfo"></div><div id="gameInfo2"></div>
-	<center><canvas width="700" height="800" id="game"></canvas><button class="btn btn-lg btn-success">Submit</button></center>
+    <div id="gameInfo"><div id='remaining'></div><div><%= @game_session.letter_bag.remainingTiles() %> tiles remaining.</div></div><div id="gameInfo2"><div id="scores"><h1>Score</h1><div id='playerScores'></div></div><h1>Words Played</h1></div>
+    <center><canvas width="700" height="800" id="game"></canvas><button class="btn btn-lg btn-success" id="submit">Submit</button></center>
 
 </div>
 <script>
+opponents = <%= @game_session.list_opponents(@user.username).to_json %>
 playerName = "<%= @user.username %>"
 boardState = <%= @game_session.board_state.to_json %>
 playerRack = <%= @game_session.letter_bag.rack[@user.username].to_json %>
 tilesRemaining = <%= @game_session.letter_bag.remainingTiles %>
 sessionID = <%= params['id'] %>
+playedWords = <%= @game_session.letter_bag.played_words.to_json %>
 userID = "<%= @user.id %>"
 currentPlayer ="<%= @game_session.current_player %>"
 $(document).ready(function(){
 
 
-    $('#gameInfo2').append($('<h1>').text('Words Played'))
+    $('#gameInfo2').append()
     gameBoard.log = $('#gameInfo').append.bind($('#gameInfo'))
-
-    gameBoard.reRack()
-    boardState.each(function(y, i){
-    	y.each(function(x, j){
-    		if(x)
-    		{
-    			console.log(x)
-    			tile = gameBoard.makeLetterTile(x)
-    			gameBoard.placeTile(j, i, tile)
-    			tile.isNew = false
-    			tile.dragAndDrop(false)
-    		}
-    	})
+    gameBoard.scores[playerName] = 0
+    opponents.each(function(x){
+        gameBoard.scores[x] = 0
     })
     
-    $('#gameInfo').append($('<h2>').text("It's "+currentPlayer+"'s turn."))
-    $('button').click(gameBoard.submit)
+    gameBoard.reRack()
+    boardState.each(function(y, i){
+        y.each(function(x, j){
+            if(x)
+            {
+                console.log(x)
+                tile = gameBoard.makeLetterTile(x)
+                gameBoard.placeTile(j, i, tile)
+                tile.isNew = false
+                tile.dragAndDrop(false)
+            }
+        })
+    })
+    
+    $('#remaining').append($('<h2>').text("It's "+currentPlayer+"'s turn."))
+    $('#submit').click(gameBoard.submit)
+
+    gameBoard.updateScore()
+
+    playedWords.each(function(x){
+        gameBoard.addPlayedWord(x)
+    })
 })
 
 </script>
 </div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body" id="myModalBody">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" id="#close" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
