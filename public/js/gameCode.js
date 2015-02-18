@@ -21,7 +21,7 @@ loadGame = function()
 		
 		client.connect = function()
 		{
-			socket = new WebSocket("wss://localhost:4567")
+			socket = new WebSocket("wss://words-with-classmates.herokuapp.com")
 			this.socket = socket
 			client = this
 			this.socket.onmessage = function (event) {
