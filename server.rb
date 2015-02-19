@@ -66,7 +66,7 @@ module Game
 
 		      ws.onclose do
 		        warn("websocket closed")
-		        settings.sockets.delete(ws)
+		        settings.sockets[@user.username].delete(ws)
 		      end
 
 		    end #request.websocket do
@@ -124,9 +124,15 @@ module Game
 		end
 		get '/game/:id/show' do
 			@game_id = params['id']
-			@game_session = Session.find(params['id'])
-			@users = @game_session.users
-			@rack =  @game_session.letter_bag.rack[@user.username]
+			begin
+				@game_session = Session.find(params['id'])
+				@users = @game_session.users
+				@rack =  @game_session.letter_bag.rack[@user.username]
+			rescue ActiveRecord::RecordNotFound
+				session.clear
+				redirect to '/'
+			end
+		
 			# binding.pry()
 			erb :'game/show'
 		end
