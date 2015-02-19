@@ -275,6 +275,8 @@ loadGame = function()
 			gameBoard.rack = []
 			gameBoard.submit()
 
+			client.send({eventName:"dump", tiles:gameBoard.getPendingLetters()})
+
 			
 		},
 		reject:function()

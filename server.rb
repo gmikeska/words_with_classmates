@@ -58,6 +58,8 @@ module Game
 					session.change_board_state(@message['x'], @message['y'], @message['letter'])
 				when "played"
 					@action_handler.play(@message)
+				when "dump"
+					@action_handler.dump(@message)
 				else
 				  puts "default case"
 				end
