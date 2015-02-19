@@ -36,7 +36,7 @@ loadGame = function()
 		 		client.send({eventName:"echo", data:"CONNECTED."})
 
 			};
-			socket.onclose = location.reload;
+			socket.onclose = client.connect
 		}
 		client.send = function(object)
 		{
