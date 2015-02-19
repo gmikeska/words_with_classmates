@@ -26,6 +26,7 @@
 #gameInfo {
   float: left;
   background-color: #829FB3;
+  margin-bottom: 40px;
   height: 100%;
   padding: 23px;
   border-radius: 18px; }
