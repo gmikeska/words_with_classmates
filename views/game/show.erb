@@ -2,7 +2,7 @@
 <div class="panel-body">
  <h2><%= @user.username %> vs. <%= @game_session.list_opponents(@user.username).join() %></h2>
 <div class="well well-sm" id='gamePanel'>
-    <div id="gameInfo"><div id='player_turn'></div><div id='remaining'><%= @game_session.letter_bag.remainingTiles() %> tiles remaining.</div></div><div id="gameInfo2"><div id="scores"><h1>Score</h1><div id='playerScores'></div></div><h1>Words Played</h1></div>
+    <div id="gameInfo"><h2 id='player_turn'></h2><div id='remaining'><%= @game_session.letter_bag.remainingTiles() %> tiles remaining.</div></div><div id="gameInfo2"><div id="scores"><h1>Score</h1><div id='playerScores'></div></div><h1>Words Played</h1></div>
     <center><canvas width="700" height="800" id="game"></canvas><button class="btn btn-lg btn-success" id="submit">Submit</button></center>
 </div>
 </div>
@@ -42,7 +42,7 @@ $(document).ready(function(){
         })
     })
     
-    $('#remaining').append($('<h2>').text("It's "+currentPlayer+"'s turn."))
+    $('#player_turn').text("It's "+currentPlayer+"'s turn."))
     $('#submit').click(gameBoard.submit)
 
     gameBoard.updateScore()
