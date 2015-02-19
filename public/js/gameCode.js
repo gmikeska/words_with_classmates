@@ -663,6 +663,8 @@ function loadEvents()
 			console.log(i)
 			if(i.letter)
 			{
+				tilesRemaining = tilesRemaining-1
+				$('#remaining').text(tilesRemaining+" tiles remaining.")
 				//console.log(i.letter)
 				tile = gameBoard.makeLetterTile(i)
 				gameBoard.placeTile(i.x,i.y, tile)
