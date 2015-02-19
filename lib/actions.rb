@@ -28,6 +28,19 @@ module Game
 					end
 			end
 		end
+		def dump(params)
+			tiles = params['tiles']
+			tiles.each do |tile|
+				@session.remove_racked_letter tile['letter'] 
+			end
+			@session.fill_rack(@user.username).to_json
+
+			self.sendBack({eventName:"rack.update", data:new_letters})
+
+			@session.letter_bag.save()
+			@session.save()
+
+		end
 		def play(params)
 			board = @session.game_board
 			tiles = params['tiles']

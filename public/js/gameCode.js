@@ -267,6 +267,16 @@ loadGame = function()
 		{
 			client.send({eventName:"played", tiles:gameBoard.getPendingLetters()})
 		},
+		dump:function()
+		{
+			gameBoard.rack.each(function(x){
+				gameBoard.pending.push({x:0, y:0, letter:x})
+			})
+			gameBoard.rack = []
+			gameBoard.submit()
+
+			
+		},
 		reject:function()
 		{
 			gameBoard.pending.each(function(tile){
