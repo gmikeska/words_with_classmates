@@ -269,8 +269,8 @@ loadGame = function()
 		},
 		dump:function()
 		{
-			gameBoard.rack.each(function(x){
-				gameBoard.placeTile(0, 0, x)
+			gameBoard.rack.each(function(x){	
+				gameBoard.placeTile(0, 0, x.getLetterTile())
 			})
 			gameBoard.rack = []
 
