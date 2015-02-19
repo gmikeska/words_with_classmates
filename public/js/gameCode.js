@@ -648,6 +648,8 @@ function loadEvents()
 	client.on('words.played', function(x){
 		console.log("Word played")
 		console.log(gameBoard.pending)
+		tilesRemaining = tilesRemaining-gameBoard.pending.length
+				$('#remaining').text(tilesRemaining+" tiles remaining.")
 		gameBoard.freezePendingLetters()
 		gameBoard.addPlayedWord(x)
 		gameBoard.updateScore()
