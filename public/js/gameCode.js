@@ -270,8 +270,7 @@ loadGame = function()
 		dump:function()
 		{
 			gameBoard.rack.each(function(x){
-				console.log(x)
-				gameBoard.placeTile.push(0, 0, x)
+				gameBoard.placeTile(0, 0, x)
 			})
 			gameBoard.rack = []
 
