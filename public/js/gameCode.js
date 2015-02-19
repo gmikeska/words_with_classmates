@@ -271,7 +271,7 @@ loadGame = function()
 		{
 			gameBoard.rack.each(function(x){
 				console.log(x)
-				gameBoard.pending.push({x:0, y:0, letter:x})
+				gameBoard.placeTile.push(0, 0, x)
 			})
 			gameBoard.rack = []
 
