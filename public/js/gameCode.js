@@ -270,6 +270,7 @@ loadGame = function()
 		dump:function()
 		{
 			gameBoard.rack.each(function(x){
+				console.log(x)
 				gameBoard.pending.push({x:0, y:0, letter:x})
 			})
 			gameBoard.rack = []
