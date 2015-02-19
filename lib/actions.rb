@@ -33,7 +33,7 @@ module Game
 			tiles.each do |tile|
 				@session.remove_racked_letter tile['letter'] 
 			end
-			@session.fill_rack(@user.username).to_json
+			new_letters = @session.fill_rack(@user.username).to_json
 
 			self.sendBack({eventName:"rack.update", data:new_letters})
 
