@@ -647,9 +647,9 @@ function loadEvents()
 
 	client.on('words.played', function(x){
 		console.log("Word played")
+		console.log(gameBoard.pending)
 		gameBoard.freezePendingLetters()
 		gameBoard.addPlayedWord(x)
-
 		gameBoard.updateScore()
 		$('#gameInfo2').append($entry)
 		console.log(x)
