@@ -36,7 +36,12 @@ loadGame = function()
 		 		client.send({eventName:"echo", data:"CONNECTED."})
 
 			};
-			socket.onclose = client.connect
+
+			socket.onclose = function (event) {
+		 		client.connected = false
+		 		console.log('WebSocket Disconnected... Reconnecting.')
+		 		client.connect()
+			};
 		}
 		client.send = function(object)
 		{
